@@ -3,7 +3,7 @@
 <head>
   <title>Plastic Pollution</title>
   <meta charset="utf-8" />
-  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
   <script src="script.js"></script>
   <link rel="stylesheet" href="style.css" />
 
@@ -72,7 +72,7 @@
         <li><a href="#" onclick="replace('div5')">Continent 5</a></li>
       </ul>
     </nav>
-    <div class="visualisation__top">
+    <div id="viz" class="visualisation__top">
       <!-- Create an element where the map will take place -->
       <svg id="my_dataviz" width="600" height="300"></svg>
       <p>visualisation 1</p>
@@ -124,7 +124,6 @@
     var svg = d3.select("svg"),
       width = +svg.attr("width"),
       height = +svg.attr("height");
-
     // Map and projection
     var path = d3.geoPath();
     var projection = d3
@@ -132,10 +131,18 @@
       .scale(70)
       .center([0, 20])
       .translate([width / 2, height / 2]);
-
     // Data and color scale
     var data = d3.map();
-
+    var color = d3
+      .scaleQuantize()
+      .range([
+        "#84f6fa",
+        "#3edef7",
+        "#2bbafc",
+        "#1787ff",
+        "#1774ff",
+        "#002fff"
+      ]);
     // Load external data and boot
     d3.queue()
       .defer(
@@ -143,6 +150,97 @@
         "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
       )
       .await(ready);
+
+    //WCMC-019-PatternsBiodiversity2010-AcrossTaxa.csv
+    d3.csv("WCMC-019-PatternsBiodiversity2010-AcrossTaxa.csv", function (data) {
+      tab_color = [];
+      data.sort(function (a, b) {
+        return b["Y_COORD,N,18,5"] - a["Y_COORD,N,18,5"];
+      });
+      for (var j = 0; j < data.length; j++) {
+        tab_color.push(data[j]["AllNorm,N,19,11"]);
+      }
+      color.domain([d3.min(tab_color), d3.max(tab_color)]);
+      //svg
+      //.selectAll("circle")
+      //.data(data)
+      //.enter()
+      //.append("circle")
+      //.attr("r", "4px")
+      //.attr("transform", function (d) {
+      //  return (
+      //    "translate(" +
+      //    projection([d["X_COORD,N,18,5"], d["Y_COORD,N,18,5"]]) +
+      //    ")"
+      //  );
+      //})
+      //.attr("fill", function (d) {
+      //  var value = d["AllNorm,N,19,11"];
+      //  return color(value);
+      //})
+      //.lower();
+      var sum = 0;
+      var dists = {};
+      console.log();
+      //calcul des distances entre chaque point
+      for (var i = 0; i < 13; i++) {
+        dists[i] = Math.abs(
+          projection([
+            data[i * 45]["X_COORD,N,18,5"],
+            data[i * 45]["Y_COORD,N,18,5"]
+          ])[1] -
+            projection([
+              data[(i + 1) * 45]["X_COORD,N,18,5"],
+              data[(i + 1) * 45]["Y_COORD,N,18,5"]
+            ])[1]
+        );
+        sum += dists[i];
+        //console.log(dists[i]);
+      }
+      //console.log(sum);
+
+      //hauteur des cases de la première ligne
+      firstH = document.getElementById("my_dataviz").clientHeight - sum;
+
+      //calcul des hauteurs pour chaque case de chaque ligne
+      for (var i = 0; i < data.length; i++) {
+        var numLine = Math.floor(i / 45);
+        if (numLine == 0) data[i]["height"] = firstH;
+        else
+          data[i]["height"] =
+            (dists[numLine - 1] - data[(numLine - 1) * 45]["height"] / 2) * 2;
+      }
+
+      svg
+        .selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr(
+          "x",
+          (d) =>
+            projection([
+              d["X_COORD,N,18,5"] - (440 / 6378) * (180 / Math.PI),
+              d["Y_COORD,N,18,5"]
+            ])[0]
+        )
+        .attr(
+          "y",
+          (d) =>
+            projection([
+              d["X_COORD,N,18,5"] - (440 / 6378) * (180 / Math.PI),
+              d["Y_COORD,N,18,5"]
+            ])[1] -
+            d["height"] / 2
+        )
+        .attr("width", 600 / 45 + "px")
+        .attr("height", (d) => d["height"] + 5 + "px")
+        .attr("fill", function (d) {
+          var value = d["AllNorm,N,19,11"];
+          return color(value);
+        })
+        .lower();
+    });
 
     function ready(error, topo) {
       // Draw the map
