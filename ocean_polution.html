@@ -11,6 +11,7 @@
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+  <script src="https://d3js.org/topojson.v2.min.js"></script>
 </head>
 
 <body>
@@ -63,16 +64,18 @@
       </p>
     </div>
 
-    <nav class="topbar">
-      <ul class="topbar__links">
-        <li><a href="#" onclick="replace('div1')">Continent 1</a></li>
-        <li><a href="#" onclick="replace('div2')">Continent 2</a></li>
-        <li><a href="#" onclick="replace('div3')">Continent 3</a></li>
-        <li><a href="#" onclick="replace('div4')">Continent 4</a></li>
-        <li><a href="#" onclick="replace('div5')">Continent 5</a></li>
-      </ul>
-    </nav>
     <div id="viz" class="visualisation__top">
+      <button type="button" onclick="clicked('Europe')">Europe</button>
+      <button type="button" onclick="clicked('Asia')">Asia</button>
+      <button type="button" onclick="clicked('Africa')">Africa</button>
+      <button type="button" onclick="clicked('Oceania')">Oceania</button>
+      <button type="button" onclick="clicked('North America')">
+        North America
+      </button>
+      <button type="button" onclick="clicked('South America')">
+        South America
+      </button>
+
       <!-- Create an element where the map will take place -->
       <svg id="my_dataviz" width="600" height="300"></svg>
       <p>visualisation 1</p>
@@ -143,6 +146,17 @@
         "#1774ff",
         "#002fff"
       ]);
+
+    const zoom = d3
+      .zoom()
+      .scaleExtent([1, 8])
+      .translateExtent([
+        [0, 0],
+        [600, 300]
+      ])
+      .on("zoom", zoomed);
+    svg.call(zoom);
+
     // Load external data and boot
     d3.queue()
       .defer(
@@ -161,27 +175,10 @@
         tab_color.push(data[j]["AllNorm,N,19,11"]);
       }
       color.domain([d3.min(tab_color), d3.max(tab_color)]);
-      //svg
-      //.selectAll("circle")
-      //.data(data)
-      //.enter()
-      //.append("circle")
-      //.attr("r", "4px")
-      //.attr("transform", function (d) {
-      //  return (
-      //    "translate(" +
-      //    projection([d["X_COORD,N,18,5"], d["Y_COORD,N,18,5"]]) +
-      //    ")"
-      //  );
-      //})
-      //.attr("fill", function (d) {
-      //  var value = d["AllNorm,N,19,11"];
-      //  return color(value);
-      //})
-      //.lower();
+
       var sum = 0;
       var dists = {};
-      console.log();
+
       //calcul des distances entre chaque point
       for (var i = 0; i < 13; i++) {
         dists[i] = Math.abs(
@@ -195,9 +192,7 @@
             ])[1]
         );
         sum += dists[i];
-        //console.log(dists[i]);
       }
-      //console.log(sum);
 
       //hauteur des cases de la première ligne
       firstH = document.getElementById("my_dataviz").clientHeight - sum;
@@ -234,7 +229,7 @@
             d["height"] / 2
         )
         .attr("width", 600 / 45 + "px")
-        .attr("height", (d) => d["height"] + 5 + "px")
+        .attr("height", (d) => d["height"] + 3 + "px")
         .attr("fill", function (d) {
           var value = d["AllNorm,N,19,11"];
           return color(value);
@@ -242,17 +237,55 @@
         .lower();
     });
 
+    g = svg.append("g");
+
     function ready(error, topo) {
       // Draw the map
-      svg
-        .append("g")
-        .selectAll("d")
+      g.selectAll("d")
         .data(topo.features)
         .enter()
         .append("path")
         // draw each country
         .attr("d", d3.geoPath().projection(projection));
       // set the color of each country
+    }
+
+    function zoomed() {
+      g.selectAll("path").attr("transform", d3.event.transform);
+      svg.selectAll("rect").attr("transform", d3.event.transform);
+    }
+
+    var continentsBounds = {
+      Africa: [-21.09375, -38.134557, 60.644531, 40.313043],
+      "North America": [-168.046875, 9.795678, -22.148438, 73.922469],
+      "South America": [-87.714844, -56.944974, -31.992188, 13.752725],
+      Europe: [-24.257813, 35.960223, 47.109375, 71.130988],
+      Asia: [35.859375, -8.754795, 178.417969, 77.579959],
+      Oceania: [112.280273, -46.437857, 178.242188, -7.188101]
+    };
+
+    function clicked(c) {
+      b = continentsBounds[c];
+      console.log(projection([b[0], b[1]]));
+      console.log(projection([b[2], b[3]]));
+
+      var dx = projection([b[2], b[3]])[0] - projection([b[0], b[1]])[0],
+        dy = projection([b[0], b[1]])[1] - projection([b[2], b[3]])[1],
+        x = (projection([b[0], b[1]])[0] + projection([b[2], b[3]])[0]) / 2,
+        y = (projection([b[0], b[1]])[1] + projection([b[2], b[3]])[1]) / 2,
+        scale = Math.max(
+          1,
+          Math.min(8, 0.9 / Math.max(dx / width, dy / height))
+        ),
+        translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+      svg
+        .transition()
+        .duration(750)
+        .call(
+          zoom.transform,
+          d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
+        );
     }
   </script>
 </body>
