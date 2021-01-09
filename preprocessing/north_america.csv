@@ -1,3 +1,4 @@
-puerto_rico_bay,san_francisco_bay,los_angeles_bay
-41.55,36.99,41.72
-1218.16,2131.7,0.0
+LABEL,BIODIVERSITY,PLASTIC
+puerto_rico_bay,41.55,1218.16
+san_francisco_bay,36.99,2131.7
+los_angeles_bay,41.72,0.0

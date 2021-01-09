@@ -1,3 +1,4 @@
-timar_sea,bass_strait,great_australian_bay
-55.04,44.09,37.91
-0.0,168.41,8.22
+LABEL,BIODIVERSITY,PLASTIC
+timar_sea,55.04,0.0
+bass_strait,44.09,168.41
+great_australian_bay,37.91,8.22
