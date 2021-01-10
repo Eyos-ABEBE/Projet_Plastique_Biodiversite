@@ -1,144 +1,111 @@
 <meta charset="utf-8" />
 
 <head>
-  <title>Plastic Pollution</title>
-  <meta charset="utf-8" />
-  <!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
-  <script src="script.js"></script>
-  <link rel="stylesheet" href="style.css" />
+    <title>Plastic Pollution</title>
+    <meta charset="utf-8" />
+    <!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css" />
 
-  <!-- Load d3.js -->
-  <script src="https://d3js.org/d3.v4.js"></script>
-  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-  <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-  <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
 </head>
 
 <body>
-  <div class="main">
-    <div>
-      <h1>Our single use plastics live their second life alongside the marine flora and fauna</h1>
-      <p style="font-style: italic;" >
-        We are currently consuming far too many plastic disposables. About 90% of non reusable plastics end up in the natural environment.
-      </p>
-    </div>
-    <p>
-        Let's have a look at the consumption of plastic disposables from Coastal Countries in the world.
-        - sources
-        - legends
-        - css 
-      </p>
+    <div class="main">
+        <div>
+            <h1>Our single use plastics live their second life alongside the marine flora and fauna</h1>
+            <p style="font-style: italic;">
+                We are currently consuming far too many plastic disposables. About 90% of non reusable plastics end up in the natural environment.
+            </p>
+        </div>
+        <p>
+            Let's have a look at the consumption of plastic disposables from Coastal Countries in the world. - sources - legends - css
+        </p>
 
-      <div id="viz" class="visualisation__top">
-        <button type="button" onclick="clicked('Europe'); change_div('div1_left','div1_right');">Europe</button>
-        <button type="button" onclick="clicked('Asia'); change_div('div2_left','div2_right');">Asia</button>
-        <button type="button" onclick="clicked('Africa'); change_div('div3_left','div3_right');">Africa</button>
-        <button type="button" onclick="clicked('Oceania'); change_div('div4_left','div4_right');">Oceania</button>
-        <button type="button" onclick="clicked('North America'); change_div('div5_left','div5_right');">
+        <div id="viz" class="visualisation__top">
+            <button type="button" onclick="clicked('Europe'); change_div('div1_left','div1_right');">Europe</button>
+            <button type="button" onclick="clicked('Asia'); change_div('div2_left','div2_right');">Asia</button>
+            <button type="button" onclick="clicked('Africa'); change_div('div3_left','div3_right');">Africa</button>
+            <button type="button" onclick="clicked('Oceania'); change_div('div4_left','div4_right');">Oceania</button>
+            <button type="button" onclick="clicked('North America'); change_div('div5_left','div5_right');">
     North America
   </button>
-        <button type="button" onclick="clicked('South America'); change_div('div6_left','div6_right');">
+            <button type="button" onclick="clicked('South America'); change_div('div6_left','div6_right');">
     South America
   </button>
 
-      <!-- Create an element where the map will take place -->
-      <div id="my_dataviz" </div>
-      
+            <!-- Create an element where the map will take place -->
+            <div id="my_dataviz"> </div>
+
+        </div>
+
+        <div id="div1_left" style="display: block; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 1 left</p>
+        </div>
+
+        <div id="div1_right" style="display: block; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 1 right</p>
+        </div>
+
+        <div id="div2_left" style="display: none; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 2 left</p>
+        </div>
+
+        <div id="div2_right" style="display: none; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 2 right</p>
+        </div>
+
+        <div id="div3_left" style="display: none; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 3 left</p>
+        </div>
+
+        <div id="div3_right" style="display: none; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 3 right</p>
+        </div>
+
+        <div id="div4_left" style="display: none; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 4 left</p>
+        </div>
+
+        <div id="div4_right" style="display: none; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 4 right</p>
+        </div>
+
+        <div id="div5_left" style="display: none; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 5 left</p>
+        </div>
+
+        <div id="div5_right" style="display: none; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 5 right</p>
+        </div>
+
+        <div id="div6_left" style="display: none; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 6 left</p>
+        </div>
+
+        <div id="div6_right" style="display: none; width: 45%;" class="visualisation__bottom">
+            <p>visualisation 6 right</p>
+        </div>
+
+        <div>
+            <h1>Storyline 3</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus enim felis, nec semper orci cursus at. Nunc a consectetur diam. Duis elementum malesuada enim, vitae condimentum odio facilisis et. Nulla ullamcorper odio sit amet nunc semper,
+                in mattis nulla tempor. Praesent ac venenatis dolor. Integer efficitur elit ut velit convallis, at vulputate odio sodales. Fusce eu sapien elementum, posuere arcu nec, viverra purus. Suspendisse dictum vestibulum velit eget fermentum.
+                Sed finibus sagittis enim, nec semper orci suscipit non. Morbi ut sem non orci ultrices sagittis. Suspendisse eu velit vulputate, iaculis risus a, congue tortor. Proin sed neque neque. Sed vitae metus ac tellus congue tincidunt. Praesent
+                eleifend felis lobortis nisl venenatis, in tincidunt justo elementum. Sed interdum a tortor mollis aliquet. Fusce mollis enim turpis, non tincidunt tellus blandit sed. Curabitur vitae sem ut ante auctor dignissim id eget diam. Sed ac convallis
+                dui. Quisque finibus orci in arcu laoreet, a facilisis dui dictum. Maecenas tincidunt nunc at varius eleifend. Suspendisse at tortor eget lorem fringilla ullamcorper. Nam imperdiet, diam sed aliquam pellentesque, turpis mauris accumsan
+                enim, at laoreet nulla ante sed libero.
+            </p>
+        </div>
+
+        <p id="demo"></p>
     </div>
-    <div id="div1" style="display: block;" class="visualisation__bottom">
-      <p>visualisation 2.1</p>
-    </div>
-    <div id="div2" style="display: none;" class="visualisation__bottom">
-      <p>visualisation 2.2</p>
-    </div>
-    <div id="div3" style="display: none;" class="visualisation__bottom">
-      <p>visualisation 2.3</p>
-    </div>
-    <div id="div4" style="display: none;" class="visualisation__bottom">
-      <p>visualisation 2.4</p>
-    </div>
-    <div id="div5" style="display: none;" class="visualisation__bottom">
-      <p>visualisation 2.5</p>
-    </div>
-
-
-
-    <div id="div1_left" style="display: inline-block; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 1 left</p>
-  </div>
-
-  <div id="div1_right" style="display: inline-block; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 1 right</p>
-  </div>
-
-  <div id="div2_left" style="display: none; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 2 left</p>
-  </div>
-
-  <div id="div2_right" style="display: none; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 2 right</p>
-  </div>
-
-  <div id="div3_left" style="display: none; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 3 left</p>
-  </div>
-
-  <div id="div3_right" style="display: none; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 3 right</p>
-  </div>
-
-  <div id="div4_left" style="display: none; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 4 left</p>
-  </div>
-
-  <div id="div4_right" style="display: none; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 4 right</p>
-  </div>
-
-  <div id="div5_left" style="display: none; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 5 left</p>
-  </div>
-
-  <div id="div5_right" style="display: none; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 5 right</p>
-  </div>
-
-  <div id="div6_left" style="display: none; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 6 left</p>
-  </div>
-
-  <div id="div6_right" style="display: none; width: 45%;" class="visualisation__bottom">
-      <p>visualisation 6 right</p>
-  </div>
-
-    <div>
-      <h1>Storyline 3</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-        faucibus enim felis, nec semper orci cursus at. Nunc a consectetur diam.
-        Duis elementum malesuada enim, vitae condimentum odio facilisis et.
-        Nulla ullamcorper odio sit amet nunc semper, in mattis nulla tempor.
-        Praesent ac venenatis dolor. Integer efficitur elit ut velit convallis,
-        at vulputate odio sodales. Fusce eu sapien elementum, posuere arcu nec,
-        viverra purus. Suspendisse dictum vestibulum velit eget fermentum. Sed
-        finibus sagittis enim, nec semper orci suscipit non. Morbi ut sem non
-        orci ultrices sagittis. Suspendisse eu velit vulputate, iaculis risus a,
-        congue tortor. Proin sed neque neque. Sed vitae metus ac tellus congue
-        tincidunt. Praesent eleifend felis lobortis nisl venenatis, in tincidunt
-        justo elementum. Sed interdum a tortor mollis aliquet. Fusce mollis enim
-        turpis, non tincidunt tellus blandit sed. Curabitur vitae sem ut ante
-        auctor dignissim id eget diam. Sed ac convallis dui. Quisque finibus
-        orci in arcu laoreet, a facilisis dui dictum. Maecenas tincidunt nunc at
-        varius eleifend. Suspendisse at tortor eget lorem fringilla ullamcorper.
-        Nam imperdiet, diam sed aliquam pellentesque, turpis mauris accumsan
-        enim, at laoreet nulla ante sed libero.
-      </p>
-    </div>
-
-    <p id="demo"></p>
-  </div>
-  <script>
-
+    <script>
         // bar chart for plastic pollution and biodiversity density per seas and oceans
         bar_chart('div1_left', 'europe.csv', true);
         bar_chart('div2_left', 'asie.csv', true);
@@ -153,376 +120,375 @@
         bar_chart('div4_right', 'oceanie.csv', false);
         bar_chart('div5_right', 'north_america.csv', false);
         bar_chart('div6_right', 'latine_america.csv', false);
-    // The svg
-    // Size ?
-    var width = 1200;
-    var height = 500;
+        // The svg
+        // Size ?
+        var width = 1200;
+        var height = 500;
 
-    var svg = d3
-      .select("#my_dataviz")
-      .append("svg")
-      .attr("width", width)
-      .attr("height", height);
+        var svg = d3
+            .select("#my_dataviz")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
 
-    // Map and projection
-    var path = d3.geoPath();
+        // Map and projection
+        var path = d3.geoPath();
 
-    var projection = d3
-      .geoMercator()
-      .scale(140)
-      .center([0, 5])
-      .translate([width / 2, height / 2]);
+        var projection = d3
+            .geoMercator()
+            .scale(140)
+            .center([0, 5])
+            .translate([width / 2, height / 2]);
 
-    // Data and color scale
-    var data = d3.map();
-    var color = d3
-      .scaleQuantize()
-      .range([
-        "#deebf7",
-        "#c6dbef",
-        "#9ecae1",
-        "#6baed6",
-        "#4292c6",
-        "#2171b5",
-        "#08519c",
-        "#08306b",
-        "#08306b"
-      ]);
+        // Data and color scale
+        var data = d3.map();
+        var color = d3
+            .scaleQuantize()
+            .range([
+                "#deebf7",
+                "#c6dbef",
+                "#9ecae1",
+                "#6baed6",
+                "#4292c6",
+                "#2171b5",
+                "#08519c",
+                "#08306b",
+                "#08306b"
+            ]);
 
-    const zoom = d3
-      .zoom()
-      .scaleExtent([1, 8])
-      .translateExtent([
-        [0, 0],
-        [width, height]
-      ])
-      .on("zoom", zoomed);
-    svg.call(zoom);
+        const zoom = d3
+            .zoom()
+            .scaleExtent([1, 8])
+            .translateExtent([
+                [0, 0],
+                [width, height]
+            ])
+            .on("zoom", zoomed);
+        svg.call(zoom);
 
-    // Load external data and boot
-    d3.queue()
-      .defer(
-        d3.json,
-        "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
-      )
-      .await(ready);
+        // Load external data and boot
+        d3.queue()
+            .defer(
+                d3.json,
+                "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
+            )
+            .await(ready);
 
-    //WCMC-019-PatternsBiodiversity2010-AcrossTaxa.csv
-    d3.csv("WCMC-019-PatternsBiodiversity2010-AcrossTaxa.csv", function (data) {
-      tab_color = [];
-      data.sort(function (a, b) {
-        return b["Y_COORD,N,18,5"] - a["Y_COORD,N,18,5"];
-      });
-      for (var j = 0; j < data.length; j++) {
-        tab_color.push(data[j]["AllNorm,N,19,11"]);
-      }
-      color.domain([d3.min(tab_color), d3.max(tab_color)]);
+        //WCMC-019-PatternsBiodiversity2010-AcrossTaxa.csv
+        d3.csv("WCMC-019-PatternsBiodiversity2010-AcrossTaxa.csv", function(data) {
+            tab_color = [];
+            data.sort(function(a, b) {
+                return b["Y_COORD,N,18,5"] - a["Y_COORD,N,18,5"];
+            });
+            for (var j = 0; j < data.length; j++) {
+                tab_color.push(data[j]["AllNorm,N,19,11"]);
+            }
+            color.domain([d3.min(tab_color), d3.max(tab_color)]);
 
-      var sum = 0;
-      var dists = {};
+            var sum = 0;
+            var dists = {};
 
-      //calcul des distances entre chaque point
-      for (var i = 0; i < 13; i++) {
-        dists[i] = Math.abs(
-          projection([
-            data[i * 45]["X_COORD,N,18,5"],
-            data[i * 45]["Y_COORD,N,18,5"]
-          ])[1] -
-            projection([
-              data[(i + 1) * 45]["X_COORD,N,18,5"],
-              data[(i + 1) * 45]["Y_COORD,N,18,5"]
-            ])[1]
-        );
-        sum += dists[i];
-      }
+            //calcul des distances entre chaque point
+            for (var i = 0; i < 13; i++) {
+                dists[i] = Math.abs(
+                    projection([
+                        data[i * 45]["X_COORD,N,18,5"],
+                        data[i * 45]["Y_COORD,N,18,5"]
+                    ])[1] -
+                    projection([
+                        data[(i + 1) * 45]["X_COORD,N,18,5"],
+                        data[(i + 1) * 45]["Y_COORD,N,18,5"]
+                    ])[1]
+                );
+                sum += dists[i];
+            }
 
-      //hauteur des cases de la première ligne
-      firstH = 600 - sum;
+            //hauteur des cases de la première ligne
+            firstH = 600 - sum;
 
-      //calcul des hauteurs pour chaque case de chaque ligne
-      for (var i = 0; i < data.length; i++) {
-        var numLine = Math.floor(i / 45);
-        if (numLine == 0) data[i]["height"] = firstH;
-        else
-          data[i]["height"] =
-            (dists[numLine - 1] - data[(numLine - 1) * 45]["height"] / 2) * 2;
-      }
+            //calcul des hauteurs pour chaque case de chaque ligne
+            for (var i = 0; i < data.length; i++) {
+                var numLine = Math.floor(i / 45);
+                if (numLine == 0) data[i]["height"] = firstH;
+                else
+                    data[i]["height"] =
+                    (dists[numLine - 1] - data[(numLine - 1) * 45]["height"] / 2) * 2;
+            }
 
-      svg
-        .selectAll("rect")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr(
-          "x",
-          (d) =>
-            projection([
-              d["X_COORD,N,18,5"] - (440 / 6378) * (180 / Math.PI),
-              d["Y_COORD,N,18,5"]
-            ])[0]
-        )
-        .attr(
-          "y",
-          (d) =>
-            projection([
-              d["X_COORD,N,18,5"] - (440 / 6378) * (180 / Math.PI),
-              d["Y_COORD,N,18,5"]
-            ])[1] -
-            d["height"] / 2
-        )
-        .attr("width", width / 45 + "px")
-        .attr("height", (d) => d["height"] + 3 + "px")
-        .attr("fill", function (d) {
-          var value = d["AllNorm,N,19,11"];
-          return color(value);
-        })
-        .lower();
-    });
+            svg
+                .selectAll("rect")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr(
+                    "x",
+                    (d) =>
+                    projection([
+                        d["X_COORD,N,18,5"] - (440 / 6378) * (180 / Math.PI),
+                        d["Y_COORD,N,18,5"]
+                    ])[0]
+                )
+                .attr(
+                    "y",
+                    (d) =>
+                    projection([
+                        d["X_COORD,N,18,5"] - (440 / 6378) * (180 / Math.PI),
+                        d["Y_COORD,N,18,5"]
+                    ])[1] -
+                    d["height"] / 2
+                )
+                .attr("width", width / 45 + "px")
+                .attr("height", (d) => d["height"] + 3 + "px")
+                .attr("fill", function(d) {
+                    var value = d["AllNorm,N,19,11"];
+                    return color(value);
+                })
+                .lower();
+        });
 
-    g = svg.append("g");
+        g = svg.append("g");
 
-    function ready(error, topo) {
-      // Draw the map
-      g.selectAll("d")
-        .data(topo.features)
-        .enter()
-        .append("path")
-        // draw each country
-        .attr("d", d3.geoPath().projection(projection));
-      // set the color of each country
-    }
-
-    // bubble map for plastic waste in kg/person/day
-    d3.csv("countries.csv", function (data) {
-      // Add a scale for bubble size
-      console.log(data);
-      var tab_size = [];
-      for (var j = 0; j < data.length; j++) {
-        tab_size.push(data[j]["Per capita plastic waste (kg/person/day)"]);
-        var bottle = Math.trunc((data[j]["Per capita plastic waste (kg/person/day)"] * 1000) / 28);
-        var weight_left = (data[j]["Per capita plastic waste (kg/person/day)"] * 1000) - (bottle*28);
-        var plastic_bag = Math.trunc(weight_left / 5) ;
-        data[j].bottles=bottle;
-        data[j].plastic_bags=plastic_bag;
-      }
-      console.log(data)
-            
-      tab_size = tab_size.map((x) => +x);
-
-
-      var size1 = d3
-        .scaleLinear() // Size in pixel
-        .domain([d3.min(tab_size), d3.max(tab_size)])
-        .range([1, 6]);
-
-      // create a tooltip
-      var Tooltip1 = d3
-        .select("body")
-        .append("div")
-        .attr("class", "tooltip1")
-        .style("opacity", 0)
-        .style("background-color", "white")
-        .style("border", "solid")
-        .style("border-width", "2px")
-        .style("border-radius", "5px")
-        .style("padding", "5px")
-        .style("position", "absolute")
-
-      // Three function that change the tooltip when user hover / move / leave a cell
-      var mouseover = function (d) {
-        Tooltip1.style("opacity", .8);
-      };
-
-      var mousemove = function (d) {
-        if (d.plastic_bags==0){
-          Tooltip1.html(
-          "<a style='font-weight: bold;'>" + d.name + "<a>" +
-            "<br>" +
-            "Plastic waste (person/day) = " +
-            d["Per capita plastic waste (kg/person/day)"] *1000 + "g" + "<br>" +
-            "<img src='img/water.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;'></img><span style='font-size: 30px; padding-top: 0px;'>" + "x " +  d.bottles + "</span>" 
-              )
-        .style("left", d3.event.pageX + 10 + "px")
-        .style("top", d3.event.pageY + 10 + "px")
+        function ready(error, topo) {
+            // Draw the map
+            g.selectAll("d")
+                .data(topo.features)
+                .enter()
+                .append("path")
+                // draw each country
+                .attr("d", d3.geoPath().projection(projection));
+            // set the color of each country
         }
-        else {
-        Tooltip1.html(
-          "<a style='font-weight: bold;'>" + d.name + "<a>" +
-            "<br>" +
-            "Plastic waste (person/day) = " +
-            d["Per capita plastic waste (kg/person/day)"] *1000 + "g" + "<br>" +
-            "<img src='img/water.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;'></img><span style='font-size: 30px; padding-top: 0px;'>" + "x " +  d.bottles + "</span><br>" + 
-            "<span style='font-size: 30px; padding-left: 16px;padding-top: 6px;'>" + "+ </span><br>" +
-              "<img src='img/shopping-bags.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;' ></img><span style='font-size: 30px;  padding-top: 0px; '>" + "x " + d.plastic_bags + "</span>")
-        .style("left", d3.event.pageX + 10 + "px")
-        .style("top", d3.event.pageY + 10 + "px")}
-      };
-      var mouseleave = function (d) {
-        Tooltip1.style("opacity", 0)
-        .style("left", 0 + "px")
-        .style("top", 0 + "px")
-      };
 
-      // Add circles:
-      svg
-        .selectAll("circles_country")
-        .data(data)
-        .enter()
-        .append("circle")
-        .style("fill", "red")
-        .attr("r", function (d) {
-          return size1(d["Per capita plastic waste (kg/person/day)"]);
-        })
-        .attr("fill-opacity", "0.4")
-        .attr("cx", (d) => projection([d["longitude"], d["latitude"]])[0])
-        .attr("cy", (d) => projection([d["longitude"], d["latitude"]])[1])
-        .attr("class", "circle")
-        .on("mouseover", mouseover)
-        .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave)
-        .upper();
-    });
+        // bubble map for plastic waste in kg/person/day
+        d3.csv("countries.csv", function(data) {
+            // Add a scale for bubble size
+            console.log(data);
+            var tab_size = [];
+            for (var j = 0; j < data.length; j++) {
+                tab_size.push(data[j]["Per capita plastic waste (kg/person/day)"]);
+                var bottle = Math.trunc((data[j]["Per capita plastic waste (kg/person/day)"] * 1000) / 28);
+                var weight_left = (data[j]["Per capita plastic waste (kg/person/day)"] * 1000) - (bottle * 28);
+                var plastic_bag = Math.trunc(weight_left / 5);
+                data[j].bottles = bottle;
+                data[j].plastic_bags = plastic_bag;
+            }
+            console.log(data)
 
-    // bubble map for plastic waste in oceans and seas in kg per km
-    d3.csv("ocean_plastic.csv", function (data) {
-      // Add a scale for bubble size
-      var tab_size = [];
-      for (var j = 0; j < data.length; j++) {
-        tab_size.push(data[j]["TOTAL__G_KM_"]);
-        var bottle = Math.trunc((data[j]["TOTAL__G_KM_"] * 1000) / 28);
-        var tennis_court = Math.trunc(bottle / 8953);
-        data[j].bottles=bottle;
-        data[j].tennis_court=tennis_court;
-      }
-      tab_size = tab_size.map((x) => +x);
-
-      var size2 = d3
-        .scaleLinear() // Size in pixel
-        .domain([d3.min(tab_size) + 0.1, d3.max(tab_size)])
-        .range([1, 4]);
+            tab_size = tab_size.map((x) => +x);
 
 
-      // Three function that change the tooltip when user hover / move / leave a cell
-     // create a tooltip
-     var Tooltip2 = d3
-        .select("body")
-        .append("div")
-        .attr("class", "tooltip2")
-        .style("opacity", 0)
-        .style("background-color", "white")
-        .style("border", "solid")
-        .style("border-width", "2px")
-        .style("border-radius", "5px")
-        .style("padding", "5px")
-        .style("position", "absolute")
+            var size1 = d3
+                .scaleLinear() // Size in pixel
+                .domain([d3.min(tab_size), d3.max(tab_size)])
+                .range([1, 6]);
 
-      // Three function that change the tooltip when user hover / move / leave a cell
-      var mouseover = function (d) {
-        Tooltip2.style("opacity", .8);
+            // create a tooltip
+            var Tooltip1 = d3
+                .select("body")
+                .append("div")
+                .attr("class", "tooltip1")
+                .style("opacity", 0)
+                .style("background-color", "white")
+                .style("border", "solid")
+                .style("border-width", "2px")
+                .style("border-radius", "5px")
+                .style("padding", "5px")
+                .style("position", "absolute")
 
-      };
+            // Three function that change the tooltip when user hover / move / leave a cell
+            var mouseover = function(d) {
+                Tooltip1.style("opacity", .8);
+            };
 
-      var mouseleave = function (d) {
-        Tooltip2.style("opacity", 0)
-        .style("left", 0 + "px")
-        .style("top", 0 + "px")
-      };
+            var mousemove = function(d) {
+                if (d.plastic_bags == 0) {
+                    Tooltip1.html(
+                            "<a style='font-weight: bold;'>" + d.name + "<a>" +
+                            "<br>" +
+                            "Plastic waste (person/day) = " +
+                            d["Per capita plastic waste (kg/person/day)"] * 1000 + "g" + "<br>" +
+                            "<img src='img/water.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;'></img><span style='font-size: 30px; padding-top: 0px;'>" + "x " + d.bottles + "</span>"
+                        )
+                        .style("left", d3.event.pageX + 10 + "px")
+                        .style("top", d3.event.pageY + 10 + "px")
+                } else {
+                    Tooltip1.html(
+                            "<a style='font-weight: bold;'>" + d.name + "<a>" +
+                            "<br>" +
+                            "Plastic waste (person/day) = " +
+                            d["Per capita plastic waste (kg/person/day)"] * 1000 + "g" + "<br>" +
+                            "<img src='img/water.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;'></img><span style='font-size: 30px; padding-top: 0px;'>" + "x " + d.bottles + "</span><br>" +
+                            "<span style='font-size: 30px; padding-left: 16px;padding-top: 6px;'>" + "+ </span><br>" +
+                            "<img src='img/shopping-bags.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;' ></img><span style='font-size: 30px;  padding-top: 0px; '>" + "x " + d.plastic_bags + "</span>")
+                        .style("left", d3.event.pageX + 10 + "px")
+                        .style("top", d3.event.pageY + 10 + "px")
+                }
+            };
+            var mouseleave = function(d) {
+                Tooltip1.style("opacity", 0)
+                    .style("left", 0 + "px")
+                    .style("top", 0 + "px")
+            };
 
-      var mousemove = function (d) {
-        if (d.tennis_court == 0){
-          Tooltip2.html(
-          "<a style='font-weight: bold;'> Plastic waste in gram per km = " +
-            d["TOTAL__G_KM_"] + "</a><br>"  +
-          "latitude : " +
-            d.LATITUDE +
-            "<br>" +
-            "longitude : " +
-            d.LONGITUDE +
-            "<br>" +
-            "<img src='img/water.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;'></img><span style='font-size: 30px; padding-top: 0px;'>" + "x " +  d.bottles + "</span>")
-        .style("left", d3.event.pageX + 10 + "px")
-        .style("top", d3.event.pageY + 10 + "px")
+            // Add circles:
+            svg
+                .selectAll("circles_country")
+                .data(data)
+                .enter()
+                .append("circle")
+                .style("fill", "red")
+                .attr("r", function(d) {
+                    return size1(d["Per capita plastic waste (kg/person/day)"]);
+                })
+                .attr("fill-opacity", "0.4")
+                .attr("cx", (d) => projection([d["longitude"], d["latitude"]])[0])
+                .attr("cy", (d) => projection([d["longitude"], d["latitude"]])[1])
+                .attr("class", "circle")
+                .on("mouseover", mouseover)
+                .on("mousemove", mousemove)
+                .on("mouseleave", mouseleave)
+                .upper();
+        });
+
+        // bubble map for plastic waste in oceans and seas in kg per km
+        d3.csv("ocean_plastic.csv", function(data) {
+            // Add a scale for bubble size
+            var tab_size = [];
+            for (var j = 0; j < data.length; j++) {
+                tab_size.push(data[j]["TOTAL__G_KM_"]);
+                var bottle = Math.trunc((data[j]["TOTAL__G_KM_"] * 1000) / 28);
+                var tennis_court = Math.trunc(bottle / 8953);
+                data[j].bottles = bottle;
+                data[j].tennis_court = tennis_court;
+            }
+            tab_size = tab_size.map((x) => +x);
+
+            var size2 = d3
+                .scaleLinear() // Size in pixel
+                .domain([d3.min(tab_size) + 0.1, d3.max(tab_size)])
+                .range([1, 4]);
+
+
+            // Three function that change the tooltip when user hover / move / leave a cell
+            // create a tooltip
+            var Tooltip2 = d3
+                .select("body")
+                .append("div")
+                .attr("class", "tooltip2")
+                .style("opacity", 0)
+                .style("background-color", "white")
+                .style("border", "solid")
+                .style("border-width", "2px")
+                .style("border-radius", "5px")
+                .style("padding", "5px")
+                .style("position", "absolute")
+
+            // Three function that change the tooltip when user hover / move / leave a cell
+            var mouseover = function(d) {
+                Tooltip2.style("opacity", .8);
+
+            };
+
+            var mouseleave = function(d) {
+                Tooltip2.style("opacity", 0)
+                    .style("left", 0 + "px")
+                    .style("top", 0 + "px")
+            };
+
+            var mousemove = function(d) {
+                if (d.tennis_court == 0) {
+                    Tooltip2.html(
+                            "<a style='font-weight: bold;'> Plastic waste in gram per km = " +
+                            d["TOTAL__G_KM_"] + "</a><br>" +
+                            "latitude : " +
+                            d.LATITUDE +
+                            "<br>" +
+                            "longitude : " +
+                            d.LONGITUDE +
+                            "<br>" +
+                            "<img src='img/water.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;'></img><span style='font-size: 30px; padding-top: 0px;'>" + "x " + d.bottles + "</span>")
+                        .style("left", d3.event.pageX + 10 + "px")
+                        .style("top", d3.event.pageY + 10 + "px")
+                } else {
+                    Tooltip2.html(
+                            "<a style='font-weight: bold;'> Plastic waste in gram per km = " +
+                            d["TOTAL__G_KM_"] + "</a><br>" +
+                            "latitude : " +
+                            d.LATITUDE +
+                            "<br>" +
+                            "longitude : " +
+                            d.LONGITUDE +
+                            "<br>" +
+                            "<img src='img/water.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;'></img><span style='font-size: 30px; padding-top: 0px;'>" + "x " + d.bottles + "</span><br>" +
+                            "<span style='font-size: 30px; padding-left: 16px;padding-top: 6px;'>" + "= </span><br>" +
+                            "<img src='img/tennis_court.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;' ></img><span style='font-size: 30px;  padding-top: 0px; '>" + "x " + d.tennis_court + "</span>")
+                        .style("left", d3.event.pageX + 10 + "px")
+                        .style("top", d3.event.pageY + 10 + "px")
+                }
+            };
+
+
+            // Add circles:
+            svg
+                .selectAll("circles_ocean")
+                .data(data)
+                .enter()
+                .append("circle")
+                .style("fill", function(d) {
+                    if (d["TOTAL__G_KM_"] == 0) return "white";
+                    else return "yellow";
+                })
+                .attr("r", function(d) {
+                    if (d["TOTAL__G_KM_"] == 0) return size2(0.1);
+                    else return size2(d["TOTAL__G_KM_"]);
+                })
+                .attr("fill-opacity", "0.2")
+                .attr("cx", (d) => projection([d["LONGITUDE"], d["LATITUDE"]])[0])
+                .attr("cy", (d) => projection([d["LONGITUDE"], d["LATITUDE"]])[1])
+                .attr("class", "circle")
+                .on("mouseover", mouseover)
+                .on("mousemove", mousemove)
+                .on("mouseleave", mouseleave)
+                .upper();
+        });
+
+        function zoomed() {
+            g.selectAll("path").attr("transform", d3.event.transform);
+            svg.selectAll("circle").attr("transform", d3.event.transform);
+            svg.selectAll("rect").attr("transform", d3.event.transform);
         }
-        else{
-        Tooltip2.html(
-          "<a style='font-weight: bold;'> Plastic waste in gram per km = " +
-            d["TOTAL__G_KM_"] + "</a><br>"  +
-          "latitude : " +
-            d.LATITUDE +
-            "<br>" +
-            "longitude : " +
-            d.LONGITUDE +
-            "<br>" +
-            "<img src='img/water.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;'></img><span style='font-size: 30px; padding-top: 0px;'>" + "x " +  d.bottles + "</span><br>" +
-            "<span style='font-size: 30px; padding-left: 16px;padding-top: 6px;'>" + "= </span><br>" +
-              "<img src='img/tennis_court.png' width='50' height='50' style='font-size: 40px;  padding-top: 10px; padding-right: 10px;' ></img><span style='font-size: 30px;  padding-top: 0px; '>" + "x " + d.tennis_court + "</span>")
-        .style("left", d3.event.pageX + 10 + "px")
-        .style("top", d3.event.pageY + 10 + "px")
+
+        var continentsBounds = {
+            Africa: [-21.09375, -38.134557, 60.644531, 40.313043],
+            "North America": [-168.046875, 9.795678, -22.148438, 73.922469],
+            "South America": [-87.714844, -56.944974, -31.992188, 13.752725],
+            Europe: [-24.257813, 35.960223, 47.109375, 71.130988],
+            Asia: [35.859375, -8.754795, 178.417969, 77.579959],
+            Oceania: [112.280273, -46.437857, 178.242188, -7.188101]
+        };
+
+
+
+        function clicked(c) {
+            b = continentsBounds[c];
+
+            var dx = projection([b[2], b[3]])[0] - projection([b[0], b[1]])[0],
+                dy = projection([b[0], b[1]])[1] - projection([b[2], b[3]])[1],
+                x = (projection([b[0], b[1]])[0] + projection([b[2], b[3]])[0]) / 2,
+                y = (projection([b[0], b[1]])[1] + projection([b[2], b[3]])[1]) / 2,
+                scale = Math.max(
+                    1,
+                    Math.min(8, 0.9 / Math.max(dx / width, dy / height))
+                ),
+                translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+            svg
+                .transition()
+                .duration(750)
+                .call(
+                    zoom.transform,
+                    d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
+                );
         }
-      };
-
-
-      // Add circles:
-      svg
-        .selectAll("circles_ocean")
-        .data(data)
-        .enter()
-        .append("circle")
-        .style("fill", function (d) {
-          if (d["TOTAL__G_KM_"] == 0) return "white";
-          else return "yellow";
-        })
-        .attr("r", function (d) {
-          if (d["TOTAL__G_KM_"] == 0) return size2(0.1);
-          else return size2(d["TOTAL__G_KM_"]);
-        })
-        .attr("fill-opacity", "0.2")
-        .attr("cx", (d) => projection([d["LONGITUDE"], d["LATITUDE"]])[0])
-        .attr("cy", (d) => projection([d["LONGITUDE"], d["LATITUDE"]])[1])
-        .attr("class", "circle")
-        .on("mouseover", mouseover)
-        .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave)
-        .upper();
-    });
-
-    function zoomed() {
-      g.selectAll("path").attr("transform", d3.event.transform);
-      svg.selectAll("circle").attr("transform", d3.event.transform);
-      svg.selectAll("rect").attr("transform", d3.event.transform);
-    }
-
-    var continentsBounds = {
-      Africa: [-21.09375, -38.134557, 60.644531, 40.313043],
-      "North America": [-168.046875, 9.795678, -22.148438, 73.922469],
-      "South America": [-87.714844, -56.944974, -31.992188, 13.752725],
-      Europe: [-24.257813, 35.960223, 47.109375, 71.130988],
-      Asia: [35.859375, -8.754795, 178.417969, 77.579959],
-      Oceania: [112.280273, -46.437857, 178.242188, -7.188101]
-    };
-
-
-
-    function clicked(c) {
-      b = continentsBounds[c];
-
-      var dx = projection([b[2], b[3]])[0] - projection([b[0], b[1]])[0],
-        dy = projection([b[0], b[1]])[1] - projection([b[2], b[3]])[1],
-        x = (projection([b[0], b[1]])[0] + projection([b[2], b[3]])[0]) / 2,
-        y = (projection([b[0], b[1]])[1] + projection([b[2], b[3]])[1]) / 2,
-        scale = Math.max(
-          1,
-          Math.min(8, 0.9 / Math.max(dx / width, dy / height))
-        ),
-        translate = [width / 2 - scale * x, height / 2 - scale * y];
-
-      svg
-        .transition()
-        .duration(750)
-        .call(
-          zoom.transform,
-          d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
-        );
-    }
-  </script>
+    </script>
 </body>
