@@ -1,32 +1,81 @@
-function myFunction() {
-    let plastic_polution_link = 'https://services6.arcgis.com/C0HVLQJI37vYnazu/arcgis/rest/services/Estimate_of_Plastic_Pollution_in_the_World_s_Oceans_1_01_4_75/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json';
-    d3.json(plastic_polution_link).then(function(data) {
-        let json_res = {}
-        data.features.forEach(el => {
+// python3 -m http.server
 
-            let TOTAL__G_KM_ = el.attributes.WD1__G_KM_ + el.attributes.WD2__G_KM_ + el.attributes.WD3__G_KM_ + el.attributes.WD4__G_KM_;
-            json_res[el.attributes.OBJECTID] = {
-                    'LATITUDE': el.attributes.LATITUDE,
-                    'LONGITUDE': el.attributes.LONGITUDE,
-                    'TOTAL__G_KM_': TOTAL__G_KM_
-                }
-                /**console.log('OBJECTID : ' + el.attributes.OBJECTID + ' LATITUDE : ' + el.attributes.LATITUDE + ' LONGITUDE : ' + el.attributes.LONGITUDE +
-                    ' WD1__G_KM_ : ' + el.attributes.WD1__G_KM_ + ' WD2__G_KM_ : ' + el.attributes.WD2__G_KM_ +
-                    ' WD3__G_KM_ : ' + el.attributes.WD3__G_KM_ + ' WD4__G_KM_ : ' + el.attributes.WD4__G_KM_ +
-                    ' TOTAL__G_KM_ : ' + TOTAL__G_KM_) **/
-        });
+function bar_chart(id_1, dataset, is_bio) {
+  console.log(is_bio);
+  var value;
+  if (is_bio) {
+    value = "BIODIVERSITY";
+  } else {
+    value = "PLASTIC";
+  }
 
-        console.log(json_res)
-        var str = JSON.stringify(json_res, null, 2);
-        document.getElementById("demo").innerHTML = "<pre>" + str + "</pre>";
+  const margin = { bottom: 65, left: 40 },
+    width = 300 - margin.left,
+    height = 150 - margin.bottom;
 
-    });
+  const x = d3.scaleBand().range([0, width]).padding(0.1);
+
+  const y = d3.scaleLinear().range([height, 0]);
+
+  const svg = d3
+    .select("#" + id_1)
+    .append("svg")
+    .attr("id", "svg")
+    .attr("width", width + margin.left)
+    .attr("height", height + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + ")");
+
+  const div = d3
+    .select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+  d3.csv("preprocessing/" + dataset, function (data) {
+    x.domain(data.map((d) => d.LABEL));
+    y.domain([0, d3.max(data, (d) => d[value])]);
+
+    svg
+      .append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x).tickSize(0))
+      .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", ".15em")
+      .attr("transform", "rotate(-30)");
+
+    svg.append("g").call(d3.axisLeft(y).ticks(6));
+
+    svg
+      .selectAll(".bar")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (d) => x(d.LABEL))
+      .attr("width", 30)
+      .attr("y", (d) => y(d[value]))
+      .attr("height", (d) => height - y(d[value]))
+      .on("mouseover", function (d) {
+        div.transition().duration(200).style("opacity", 0.9);
+        div
+          .html(value + " " + d[value])
+          .style("left", d3.event.pageX + 10 + "px")
+          .style("top", d3.event.pageY - 50 + "px");
+      })
+      .on("mouseout", function (d) {
+        div.transition().duration(500).style("opacity", 0);
+      });
+  });
 }
 
-function replace(show) {
-    elmts = document.getElementsByClassName('visualisation__bottom');
-    for (var i = 0; i < elmts.length; i++) {
-        elmts[i].style.display = 'none';
-    }
-    document.getElementById(show).style.display = "block";
+function change_div(id_1, id_2) {
+  elmts = document.getElementsByClassName("visualisation__bottom");
+  for (var i = 0; i < elmts.length; i++) {
+    elmts[i].style.display = "none";
+  }
+  document.getElementById(id_1).style.display = "inline-block";
+  document.getElementById(id_2).style.display = "inline-block";
 }

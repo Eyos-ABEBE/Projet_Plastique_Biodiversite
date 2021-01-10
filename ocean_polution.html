@@ -29,18 +29,17 @@
         - css 
       </p>
 
-    <div id="viz" class="visualisation__top">
-       
-      <button type="button" onclick="clicked('Europe')">Europe</button>
-      <button type="button" onclick="clicked('Asia')">Asia</button>
-      <button type="button" onclick="clicked('Africa')">Africa</button>
-      <button type="button" onclick="clicked('Oceania')">Oceania</button>
-      <button type="button" onclick="clicked('North America')">
-        North America
-      </button>
-      <button type="button" onclick="clicked('South America')">
-        South America
-      </button>
+      <div id="viz" class="visualisation__top">
+        <button type="button" onclick="clicked('Europe'); change_div('div1_left','div1_right');">Europe</button>
+        <button type="button" onclick="clicked('Asia'); change_div('div2_left','div2_right');">Asia</button>
+        <button type="button" onclick="clicked('Africa'); change_div('div3_left','div3_right');">Africa</button>
+        <button type="button" onclick="clicked('Oceania'); change_div('div4_left','div4_right');">Oceania</button>
+        <button type="button" onclick="clicked('North America'); change_div('div5_left','div5_right');">
+    North America
+  </button>
+        <button type="button" onclick="clicked('South America'); change_div('div6_left','div6_right');">
+    South America
+  </button>
 
       <!-- Create an element where the map will take place -->
       <div id="my_dataviz" </div>
@@ -61,6 +60,56 @@
     <div id="div5" style="display: none;" class="visualisation__bottom">
       <p>visualisation 2.5</p>
     </div>
+
+
+
+    <div id="div1_left" style="display: inline-block; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 1 left</p>
+  </div>
+
+  <div id="div1_right" style="display: inline-block; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 1 right</p>
+  </div>
+
+  <div id="div2_left" style="display: none; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 2 left</p>
+  </div>
+
+  <div id="div2_right" style="display: none; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 2 right</p>
+  </div>
+
+  <div id="div3_left" style="display: none; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 3 left</p>
+  </div>
+
+  <div id="div3_right" style="display: none; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 3 right</p>
+  </div>
+
+  <div id="div4_left" style="display: none; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 4 left</p>
+  </div>
+
+  <div id="div4_right" style="display: none; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 4 right</p>
+  </div>
+
+  <div id="div5_left" style="display: none; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 5 left</p>
+  </div>
+
+  <div id="div5_right" style="display: none; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 5 right</p>
+  </div>
+
+  <div id="div6_left" style="display: none; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 6 left</p>
+  </div>
+
+  <div id="div6_right" style="display: none; width: 45%;" class="visualisation__bottom">
+      <p>visualisation 6 right</p>
+  </div>
 
     <div>
       <h1>Storyline 3</h1>
@@ -89,6 +138,21 @@
     <p id="demo"></p>
   </div>
   <script>
+
+        // bar chart for plastic pollution and biodiversity density per seas and oceans
+        bar_chart('div1_left', 'europe.csv', true);
+        bar_chart('div2_left', 'asie.csv', true);
+        bar_chart('div3_left', 'africa.csv', true);
+        bar_chart('div4_left', 'oceanie.csv', true);
+        bar_chart('div5_left', 'north_america.csv', true);
+        bar_chart('div6_left', 'latine_america.csv', true);
+
+        bar_chart('div1_right', 'europe.csv', false);
+        bar_chart('div2_right', 'asie.csv', false);
+        bar_chart('div3_right', 'africa.csv', false);
+        bar_chart('div4_right', 'oceanie.csv', false);
+        bar_chart('div5_right', 'north_america.csv', false);
+        bar_chart('div6_right', 'latine_america.csv', false);
     // The svg
     // Size ?
     var width = 1200;
@@ -252,10 +316,10 @@
         .range([1, 6]);
 
       // create a tooltip
-      var Tooltip = d3
+      var Tooltip1 = d3
         .select("body")
         .append("div")
-        .attr("class", "tooltip")
+        .attr("class", "tooltip1")
         .style("opacity", 0)
         .style("background-color", "white")
         .style("border", "solid")
@@ -266,12 +330,12 @@
 
       // Three function that change the tooltip when user hover / move / leave a cell
       var mouseover = function (d) {
-        Tooltip.style("opacity", .8);
+        Tooltip1.style("opacity", .8);
       };
 
       var mousemove = function (d) {
         if (d.plastic_bags==0){
-          Tooltip.html(
+          Tooltip1.html(
           "<a style='font-weight: bold;'>" + d.name + "<a>" +
             "<br>" +
             "Plastic waste (person/day) = " +
@@ -282,7 +346,7 @@
         .style("top", d3.event.pageY + 10 + "px")
         }
         else {
-        Tooltip.html(
+        Tooltip1.html(
           "<a style='font-weight: bold;'>" + d.name + "<a>" +
             "<br>" +
             "Plastic waste (person/day) = " +
@@ -294,7 +358,7 @@
         .style("top", d3.event.pageY + 10 + "px")}
       };
       var mouseleave = function (d) {
-        Tooltip.style("opacity", 0)
+        Tooltip1.style("opacity", 0)
         .style("left", 0 + "px")
         .style("top", 0 + "px")
       };
@@ -343,7 +407,7 @@
      var Tooltip2 = d3
         .select("body")
         .append("div")
-        .attr("class", "tooltip")
+        .attr("class", "tooltip2")
         .style("opacity", 0)
         .style("background-color", "white")
         .style("border", "solid")
@@ -436,6 +500,8 @@
       Asia: [35.859375, -8.754795, 178.417969, 77.579959],
       Oceania: [112.280273, -46.437857, 178.242188, -7.188101]
     };
+
+
 
     function clicked(c) {
       b = continentsBounds[c];
