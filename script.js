@@ -8,9 +8,9 @@ function draw_barchart(svg, x, y, data, selector, display_y_axis) {
         .enter().append("rect")
         .attr("class", function() {
             if (display_y_axis) {
-                return "bar";
+                return "bar_right";
             } else {
-                return "bar";
+                return "bar_left";
             }
         })
         .attr("x", function(d) {
@@ -33,11 +33,14 @@ function draw_barchart(svg, x, y, data, selector, display_y_axis) {
         .attr("height", y.bandwidth());
 
     svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
+        .attr('class', 'x-axis')
+        .attr("transform", "translate(0,175)")
         .call(d3.axisBottom(x));
 
     if (display_y_axis) {
         svg.append("g")
+            .attr('class', 'y-axis')
+            .attr("transform", "translate(-15,0)")
             .call(d3.axisLeft(y));
     }
 }
@@ -47,41 +50,44 @@ function print_barchart(id, dataset) {
             top: 20,
             right: 20,
             bottom: 30,
-            left: 100,
+            left: 130,
         },
-        width = 450 - margin.left - margin.right,
+        width = 500 - margin.left - margin.right,
         height = 225 - margin.top - margin.bottom;
 
     var y = d3.scaleBand()
         .range([height, 0])
         .padding(0.1);
 
-    var x = d3.scaleLinear()
+    var x = d3.scaleLinear() // BIODIVERSITE
         .range([0, width]);
 
-    var x2 = d3.scaleLinear()
+    var x2 = d3.scaleLinear() // PLASTIC
         .range([width, 0]);
+
     var svg = d3.select("#" + id).append("svg")
-        .attr("width", width + margin.left + margin.right)
+        .attr("width", width + 10)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(0," + margin.top + ")");
+
+
+    var svg2 = d3.select("#" + id).append("svg")
+        .attr("width", width + margin.left)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-    var svg2 = d3.select("#" + id).append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
-    console.log('coucou');
     d3.csv("preprocessing/" + dataset, function(data) {
+
         x.domain([0, d3.max(data, function(d) {
-            return (d.BIODIVERSITY);
+            return (parseFloat(d.BIODIVERSITY));
         })])
 
         x2.domain([0, d3.max(data, function(d) {
-            return (d.PLASTIC);
+            return (parseFloat(d.PLASTIC));
         })])
 
         y.domain(data.map(function(d) {

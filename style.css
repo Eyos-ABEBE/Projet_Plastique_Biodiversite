@@ -33,16 +33,23 @@ body {
 }
 
 .main {
-    /* background-color: red; */
     margin: 10px 10%;
     text-align: center;
 }
 
-.bar {
+.bar_right {
     fill: steelblue;
 }
 
-.bar:hover {
+.bar_right:hover {
+    fill: #23415a;
+}
+
+.bar_left {
+    fill: yellow;
+}
+
+.bar_left:hover {
     fill: #23415a;
 }
 
@@ -61,11 +68,10 @@ body {
     max-width: 300px;
 }
 
-
-/* .domain {
+.domain {
     display: none;
 }
 
 .tick line {
     display: none;
-} */
+}
