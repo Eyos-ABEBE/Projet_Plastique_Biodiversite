@@ -1,81 +1,104 @@
 // python3 -m http.server
 
-function bar_chart(id_1, dataset, is_bio) {
-  console.log(is_bio);
-  var value;
-  if (is_bio) {
-    value = "BIODIVERSITY";
-  } else {
-    value = "PLASTIC";
-  }
+function draw_barchart(svg, x, y, data, selector, display_y_axis) {
 
-  const margin = { bottom: 65, left: 40 },
-    width = 300 - margin.left,
-    height = 150 - margin.bottom;
+    console.log(data)
+    svg.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", function() {
+            if (display_y_axis) {
+                return "bar";
+            } else {
+                return "bar";
+            }
+        })
+        .attr("x", function(d) {
+            if (display_y_axis) {
+                return 0;
+            } else {
+                return x(d[selector]);
+            }
+        })
+        .attr("width", function(d) {
+            if (display_y_axis) {
+                return x(d[selector]);
+            } else {
+                return x(0) - x(d[selector]);
+            }
+        })
+        .attr("y", function(d) {
+            return y(d.LABEL);
+        })
+        .attr("height", y.bandwidth());
 
-  const x = d3.scaleBand().range([0, width]).padding(0.1);
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
 
-  const y = d3.scaleLinear().range([height, 0]);
-
-  const svg = d3
-    .select("#" + id_1)
-    .append("svg")
-    .attr("id", "svg")
-    .attr("width", width + margin.left)
-    .attr("height", height + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + ")");
-
-  const div = d3
-    .select("body")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
-
-  d3.csv("preprocessing/" + dataset, function (data) {
-    x.domain(data.map((d) => d.LABEL));
-    y.domain([0, d3.max(data, (d) => d[value])]);
-
-    svg
-      .append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x).tickSize(0))
-      .selectAll("text")
-      .style("text-anchor", "end")
-      .attr("dx", "-.8em")
-      .attr("dy", ".15em")
-      .attr("transform", "rotate(-30)");
-
-    svg.append("g").call(d3.axisLeft(y).ticks(6));
-
-    svg
-      .selectAll(".bar")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", (d) => x(d.LABEL))
-      .attr("width", 30)
-      .attr("y", (d) => y(d[value]))
-      .attr("height", (d) => height - y(d[value]))
-      .on("mouseover", function (d) {
-        div.transition().duration(200).style("opacity", 0.9);
-        div
-          .html(value + " " + d[value])
-          .style("left", d3.event.pageX + 10 + "px")
-          .style("top", d3.event.pageY - 50 + "px");
-      })
-      .on("mouseout", function (d) {
-        div.transition().duration(500).style("opacity", 0);
-      });
-  });
+    if (display_y_axis) {
+        svg.append("g")
+            .call(d3.axisLeft(y));
+    }
 }
 
-function change_div(id_1, id_2) {
-  elmts = document.getElementsByClassName("visualisation__bottom");
-  for (var i = 0; i < elmts.length; i++) {
-    elmts[i].style.display = "none";
-  }
-  document.getElementById(id_1).style.display = "inline-block";
-  document.getElementById(id_2).style.display = "inline-block";
+function print_barchart(id, dataset) {
+    var margin = {
+            top: 20,
+            right: 20,
+            bottom: 30,
+            left: 100,
+        },
+        width = 450 - margin.left - margin.right,
+        height = 225 - margin.top - margin.bottom;
+
+    var y = d3.scaleBand()
+        .range([height, 0])
+        .padding(0.1);
+
+    var x = d3.scaleLinear()
+        .range([0, width]);
+
+    var x2 = d3.scaleLinear()
+        .range([width, 0]);
+    var svg = d3.select("#" + id).append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+    var svg2 = d3.select("#" + id).append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+    console.log('coucou');
+    d3.csv("preprocessing/" + dataset, function(data) {
+        x.domain([0, d3.max(data, function(d) {
+            return (d.BIODIVERSITY);
+        })])
+
+        x2.domain([0, d3.max(data, function(d) {
+            return (d.PLASTIC);
+        })])
+
+        y.domain(data.map(function(d) {
+            return d['LABEL'];
+        }));
+        draw_barchart(svg, x2, y, data, 'PLASTIC', false)
+        draw_barchart(svg2, x, y, data, 'BIODIVERSITY', true)
+    });
+}
+
+
+
+
+function change_div(id_1) {
+    elmts = document.getElementsByClassName("visualisation__bottom");
+    for (var i = 0; i < elmts.length; i++) {
+        elmts[i].style.display = "none";
+    }
+    document.getElementById(id_1).style.display = "block";
 }

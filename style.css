@@ -1,67 +1,71 @@
 body {
-  margin: 0;
+    margin: 0;
 }
 
 .topbar ul {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin: 0 30%;
-  padding: 0;
-  list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0 30%;
+    padding: 0;
+    list-style-type: none;
 }
 
 .topbar li {
-  margin: 0;
+    margin: 0;
 }
 
 .circle:hover {
-  fill-opacity: 1;
+    fill-opacity: 1;
 }
 
 .topbar a {
-  color: inherit;
-  text-decoration: none;
-  display: flex;
-  height: 40px;
-  align-items: center;
-  transition: color 0.3s;
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    height: 40px;
+    align-items: center;
+    transition: color 0.3s;
 }
 
 .topbar a:hover {
-  color: lightskyblue;
+    color: lightskyblue;
 }
 
 .main {
-  /* background-color: red; */
-  margin: 10px 10%;
-  text-align: center;
-}
-
-.visualisation__top {
-  margin: 0 15%;
-  height: 600;
+    /* background-color: red; */
+    margin: 10px 10%;
+    text-align: center;
 }
 
 .bar {
-  fill: steelblue;
+    fill: steelblue;
 }
 
 .bar:hover {
-  fill: #23415a;
+    fill: #23415a;
 }
 
 .tooltip {
-  position: absolute;
-  opacity: 0.8;
-  z-index: 1000;
-  text-align: left;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  padding: 8px;
-  color: #fff;
-  background-color: #000;
-  font: 12px sans-serif;
-  max-width: 300px;
+    position: absolute;
+    opacity: 0.8;
+    z-index: 1000;
+    text-align: left;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 8px;
+    color: #fff;
+    background-color: #000;
+    font: 12px sans-serif;
+    max-width: 300px;
 }
+
+
+/* .domain {
+    display: none;
+}
+
+.tick line {
+    display: none;
+} */
