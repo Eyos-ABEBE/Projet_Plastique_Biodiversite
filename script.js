@@ -40,8 +40,8 @@ function draw_barchart(svg, x, y, data, selector, display_y_axis) {
     if (display_y_axis) {
         svg.append("g")
             .attr('class', 'y-axis')
-            .attr("transform", "translate(-15,0)")
-            .call(d3.axisLeft(y));
+            .attr("transform", "translate(-125,0)")
+            .call(d3.axisRight(y));
     }
 }
 
@@ -72,7 +72,6 @@ function print_barchart(id, dataset) {
         .attr("transform",
             "translate(0," + margin.top + ")");
 
-
     var svg2 = d3.select("#" + id).append("svg")
         .attr("width", width + margin.left)
         .attr("height", height + margin.top + margin.bottom)
@@ -81,6 +80,7 @@ function print_barchart(id, dataset) {
             "translate(" + margin.left + "," + margin.top + ")");
 
     d3.csv("preprocessing/" + dataset, function(data) {
+
 
         x.domain([0, d3.max(data, function(d) {
             return (parseFloat(d.BIODIVERSITY));
