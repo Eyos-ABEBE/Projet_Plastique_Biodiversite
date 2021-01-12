@@ -1,0 +1,658 @@
+<meta charset="utf-8" />
+
+<head>
+  <title>Plastic Pollution</title>
+  <meta charset="utf-8" />
+  <!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+  />
+  <!-- Load d3.js -->
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+  <script src="https://d3js.org/topojson.v2.min.js"></script>
+</head>
+
+<body>
+  <div class="main">
+    <div class="text-left">
+      <div class="h-100 d-flex flex-column justify-content-center mx-auto w-75">
+        <h1 class="w-75 mainTitle">
+          The lives of our single use plastics within the marine flora and fauna in 2010
+        </h1>
+        <p class="subtitle">
+          We are currently consuming far too many plastic disposables.
+        </p>
+        <div class="d-flex flex-row justify-content-center align-items-center">
+          <span class="ninety">90%</span>
+          <p class="subtitle">
+            of non reusable plastics end up in the natural environment.
+          </p>
+        </div>
+        
+      </div>
+    </div>
+
+    <div id="viz" class="visualisation__top">
+      <div class="container-fluid" id="map">
+        <h1 class="w-100 mainTitle" style="padding-bottom: 20px; ">World plastic consumption and plastic waste in the Marine environment</h1>
+        <div class="row">
+          <div class="col-2" id="empty"> 
+          </div>
+          <div class="col-7" >
+                <div class="topnav">
+                  <button type="button" onclick="clicked('Europe'); change_div('div1');">
+                    Europe
+                  </button>
+                  <button type="button" onclick="clicked('Asia'); change_div('div2');">
+                    Asia
+                  </button>
+                  <button type="button" onclick="clicked('Africa'); change_div('div3');">
+                    Africa
+                  </button>
+                  <button type="button" onclick="clicked('Oceania'); change_div('div4');">
+                    Oceania
+                  </button>
+                  <button
+                    type="button"
+                    onclick="clicked('North America'); change_div('div5');"
+                  >
+                    North America
+                  </button>
+                  <button
+                    type="button"
+                    onclick="clicked('South America'); change_div('div6');"
+                  >
+                    South America
+                  </button>
+                </div>
+                <div id="my_dataviz" ></div>
+                <div id="div1" style="display: block;" class="visualisation__bottom">
+                    <h3 style="padding-bottom: 20px; ">
+                      Oceans and Seas comparison of plastic pollution and marine
+                      biodiversity surrounding Europe
+                    </h3>
+                  </div>
+            
+                  <div id="div2" style="display: none;" class="visualisation__bottom">
+                      <h3 style="padding-bottom: 20px; ">
+                      Oceans and Seas comparison of plastic pollution and marine
+                      biodiversity surrounding Asia
+                    </h3>
+                  </div>
+            
+                  <div id="div3" style="display: none;" class="visualisation__bottom">
+                      <h3 style="padding-bottom: 20px; ">
+                      Oceans and Seas comparison of plastic pollution and marine
+                      biodiversity surrounding Africa
+                    </h3>
+                  </div>
+            
+                  <div id="div4" style="display: none;" class="visualisation__bottom">
+                      <h3 style="padding-bottom: 20px; ">
+                      Oceans and Seas comparison of plastic pollution and marine
+                      biodiversity surrounding Oceania
+                    </h3>
+                  </div>
+            
+                  <div id="div5" style="display: none;" class="visualisation__bottom">
+                      <h3 style="padding-bottom: 20px; ">
+                      Oceans and Seas comparison of plastic pollution and marine
+                      biodiversity surrounding North America
+                    </p>
+                  </div>
+            
+                  <div id="div6" style="display: none;" class="visualisation__bottom">
+                      <h3 style="padding-bottom: 20px; ">
+                      Oceans and Seas comparison of plastic pollution and marine
+                      biodiversity surrounding South America
+                      </h3>
+                  </div>
+
+            
+          </div>
+          <!-- Div where the caption take place, at the right side of the two visualisations  -->
+          <div class="col-2" id="caption">
+            <img src="img/caption.png"
+            alt="caption about all visualisations"
+            width="383"
+            height="888" /></img>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="h-100">
+        <div class="h-100 d-flex flex-column justify-content-center text-left w-75 mx-auto">
+          <div class="d-flex flex-column">
+            <div class="mb-50 d-flex flex-row align-items-center"><p class="w-75">In the visualisation above we show the <b>consumption of plastics per person
+              per day</b> for every coastal countries (<i>red circles</i>).</p>
+              <span class="big w-25">grams / person / day </span>
+            </div>
+            <div class="mb-50 d-flex flex-row align-items-center" >
+              <span class="big-left w-25">grams / square kilometer </span>
+
+              <p class="w-75 text-right">In addition to
+              that we visualize data that represents <b>plastic pollution in the oceans</b>.
+              These datas show plastics present per square kilometers in grams (<i>yellow circles</i
+              >).</p>
+            </div>
+            <div class="mb-50 d-flex flex-row align-items-center">
+              <p class="w-75">And finally we have data that show the <b>global patterns of marine
+              biodiversity (species richness) </b>for 13 major species groups , that is
+              over 11,567 species in total, as shown by the sections on the marine
+              territory which represents an area of 774400km². The darker the color the
+              richer the biodiversity.</p>
+              <span class="big w-25">11,567 species</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+
+      <div class="h-50 bg-blue d-flex flex-column justify-content-center">
+        <div class="w-75 mx-auto">
+          <div class="mb-5">
+        <p class="text-right">
+          In the graph, we make a side by side comparison of the marine
+          Flora and Faune richness and the plastic pollution in their habitat.
+          Our goal here is not to point out the cause but to show the data is
+          real and present. But it is easy to conclude that the cohabitaion of
+          these two entities is not optimal for the marine biodiversity.
+        </p>
+          </div>
+          <div>
+        <p><b>          We all have a responsibilty to take care of the world we live in. By
+          limiting the consumption of plastic we have each day we can make an
+          impact for the better. We all know time is running out, and these
+          little steps can help.</b>
+        </p>
+
+        
+      </div>
+      
+      </div>
+      
+      </div>
+      <div class="credit text-left">
+          <p><a href="mailto:j.pattin@gmail.com">Jonathan Pattin Cottet<a>, <a href="mailto:abebeeyosyas@gmail.com">Eyosyas Abebe<a>, <a href="mailto:simon.verdu@free.fr">Simon Verdu<a>, <a href="mailto:floriangaspard.fg@gmail.com">Florian Gaspard<a><p>
+          <p><a href="https://lyondataviz.github.io/teaching/lyon1-m2/2020/">Cours data visualization 2020</a>, Université Claude Bernard Lyon 1, Master Data Science</p>
+        </div>
+      <div class="footer">
+        <a class="active">Sources</a>
+        <a
+          href="https://data.unep-wcmc.org/datasets/17"
+          class="links"
+          target="_blank"
+          rel="noopener noreferrer"
+          >UNEP World Conservation Monitoring Centre, 2009</a
+        >
+        <a
+          href="https://hub.arcgis.com/datasets/CESJ::estimate-of-plastic-pollution-in-the-worlds-oceans-km2-200-mm"
+          class="links"
+          target="_blank"
+          rel="noopener noreferrer"
+          >arcGIS Hub, 2019</a
+        >
+        <a
+          href="https://ourworldindata.org/plastic-pollution#total-plastic-waste-by-country"
+          class="links"
+          target="_blank"
+          rel="noopener noreferrer"
+          >ourworldindata.org 2010</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- References
+
+Include information in the following order:
+
+    author (the person or organisation responsible for the site)
+    year (date created or last updated)
+    name of sponsor of site (if available) 
+    accessed day month year (the date you viewed the site)
+    URL or Internet address (between pointed brackets). If possible, ensure that the URL is included without a line-break.
+
+International Narcotics Control Board 1999, United Nations, accessed 1 October 1999, <http://www.incb.org> -->
+  <script>
+    // bar chart for plastic pollution and biodiversity density per seas and oceans
+    print_barchart("div1", "europe.csv");
+    print_barchart("div2", "asie.csv");
+    print_barchart("div3", "africa.csv");
+    print_barchart("div4", "oceanie.csv");
+    print_barchart("div5", "north_america.csv");
+    print_barchart("div6", "latine_america.csv");
+
+    // The svg
+    // Size of the main visualisation
+    var width = 900;
+    var height = 500;
+
+    var svg = d3
+      .select("#my_dataviz")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    // Map and projection
+    var path = d3.geoPath();
+
+    var projection = d3
+      .geoMercator()
+      .scale(140)
+      .center([0, 5])
+      .translate([width / 2, height / 2]);
+
+    // Data and color scale
+    var data = d3.map();
+    var color = d3
+      .scaleQuantize()
+      .range([
+        "#deebf7",
+        "#c6dbef",
+        "#9ecae1",
+        "#6baed6",
+        "#4292c6",
+        "#2171b5",
+        "#08519c",
+        "#08306b",
+        "#08306b"
+      ]);
+
+    const zoom = d3
+      .zoom()
+      .scaleExtent([1, 8])
+      .translateExtent([
+        [-width, -height],
+        [width * 2, height * 2]
+      ])
+      .on("zoom", zoomed);
+    svg.call(zoom);
+
+    // Load external data and boot
+    d3.queue()
+      .defer(
+        d3.json,
+        "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
+      )
+      .await(ready);
+
+    //WCMC-019-PatternsBiodiversity2010-AcrossTaxa.csv
+    d3.csv("WCMC-019-PatternsBiodiversity2010-AcrossTaxa.csv", function (data) {
+      tab_color = [];
+      data.sort(function (a, b) {
+        return b["Y_COORD,N,18,5"] - a["Y_COORD,N,18,5"];
+      });
+      for (var j = 0; j < data.length; j++) {
+        tab_color.push(data[j]["AllNorm,N,19,11"]);
+      }
+      color.domain([d3.min(tab_color), d3.max(tab_color)]);
+
+      var sum = 0;
+      var dists = {};
+
+      //calcul des distances entre chaque point
+      for (var i = 0; i < 13; i++) {
+        dists[i] = Math.abs(
+          projection([
+            data[i * 45]["X_COORD,N,18,5"],
+            data[i * 45]["Y_COORD,N,18,5"]
+          ])[1] -
+            projection([
+              data[(i + 1) * 45]["X_COORD,N,18,5"],
+              data[(i + 1) * 45]["Y_COORD,N,18,5"]
+            ])[1]
+        );
+        sum += dists[i];
+      }
+
+      //hauteur des cases de la première ligne
+      firstH = 600 - sum;
+
+      //calcul des hauteurs pour chaque case de chaque ligne
+      for (var i = 0; i < data.length; i++) {
+        var numLine = Math.floor(i / 45);
+        if (numLine == 0) data[i]["height"] = firstH;
+        else
+          data[i]["height"] =
+            (dists[numLine - 1] - data[(numLine - 1) * 45]["height"] / 2) * 2;
+      }
+
+      //rectangles for biodiversity data
+      svg
+        .selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr(
+          "x",
+          (d) =>
+            projection([
+              d["X_COORD,N,18,5"] - (440 / 6378) * (180 / Math.PI), //move 440km left
+              d["Y_COORD,N,18,5"]
+            ])[0]
+        )
+        .attr(
+          "y",
+          (d) =>
+            projection([
+              d["X_COORD,N,18,5"] - (440 / 6378) * (180 / Math.PI),
+              d["Y_COORD,N,18,5"]
+            ])[1] -
+            d["height"] / 2
+        )
+        .attr("width", width / 45 + "px")
+        .attr("height", (d) => d["height"] + 3 + "px")
+        .attr("fill", function (d) {
+          var value = d["AllNorm,N,19,11"];
+          return color(value);
+        })
+        .lower();
+    });
+
+    g = svg.append("g");
+
+    function ready(error, topo) {
+      // Draw the map
+      g.selectAll("d")
+        .data(topo.features)
+        .enter()
+        .append("path")
+        // draw each country
+        .attr("d", d3.geoPath().projection(projection));
+      // set the color of each country
+    }
+
+    ////////////////////////////////////////////////////
+    // bubble map for plastic waste in kg/person/day //
+
+    // read and prepare data about plastic waste and its equivalence in 
+    // plastic bottles and plastic bags.
+    d3.csv("countries.csv", function (data) {
+      var tab_size = [];
+      for (var j = 0; j < data.length; j++) {
+        tab_size.push(data[j]["Per capita plastic waste (kg/person/day)"]);
+        var bottle = Math.trunc(
+          (data[j]["Per capita plastic waste (kg/person/day)"] * 1000) / 28
+        );
+        var weight_left =
+          data[j]["Per capita plastic waste (kg/person/day)"] * 1000 -
+          bottle * 28;
+        var plastic_bag = Math.trunc(weight_left / 5);
+        data[j].bottles = bottle;
+        data[j].plastic_bags = plastic_bag;
+      }
+
+      tab_size = tab_size.map((x) => +x);
+
+      var size1 = d3
+        .scaleLinear() // Size in pixel
+        .domain([d3.min(tab_size), d3.max(tab_size)])
+        .range([1, 8]);
+
+      // create a tooltip
+      var Tooltip1 = d3
+        .select("body")
+        .append("div")
+        .attr("class", "tooltip1")
+        .style("opacity", 0)
+        .style("background-color", "white")
+        .style("border-width", "2px")
+        .style("border-radius", "5px")
+        .style("padding", "5px")
+        .style("position", "absolute");
+
+      // Three function that change the tooltip when user hover / move / leave a cell
+      var mouseover = function (d) {
+        Tooltip1.style("opacity", 0.9);
+      };
+
+      // when hovering, you see some informations about the country :
+      // Name of the country 
+      // Plastic waste in gram per person per day
+      // the equivalent in numbers of bottles 
+      // plus in numbers of plastic bags 
+
+      var mousemove = function (d) {
+        if (d.plastic_bags == 0) {
+          Tooltip1.html(
+            "<a style='font-weight: bold;'>" +
+              d.name +
+              "<a>" +
+              "<br>" +
+              "Plastic waste in gram per person per day = " +
+              d["Per capita plastic waste (kg/person/day)"] * 1000 +
+              "g" +
+              "<br>" +
+              "<br>" + 
+              "<img src='img/water.png' width='50' height='50' '></img><span class ='numbers' style='font-size: 25px; padding-top: 10px;'>" +
+              " x " +
+              d.bottles +
+              "</span>"
+          )
+            .style("left", d3.event.pageX + 10 + "px")
+            .style("top", d3.event.pageY + 10 + "px");
+        } else {
+          Tooltip1.html(
+            "<a style='font-weight: bold;'>" +
+              d.name +
+              "<a>" +
+              "<br>" +
+              "Plastic waste in gram per person per day  = " +
+              d["Per capita plastic waste (kg/person/day)"] * 1000 +
+              "<br>" +
+              "<br>" + 
+              "<img src='img/water.png' width='50' height='50' '></img><span class ='numbers' style='font-size: 24px; padding-top: 10px;'>" +
+              " x " +
+              d.bottles +
+              "</span><br>" +
+              "<span style='font-size: 24px; padding-left: 18px;padding-top: 6px;'>" +
+              "+ </span><br>" +
+              "<img src='img/shopping-bags.png' width='50' height='50' '></img><span class ='numbers' style='font-size: 24px;  padding-top: 0px; '>" +
+              " x " +
+              d.plastic_bags +
+              "</span>"
+          )
+            .style("left", d3.event.pageX + 10 + "px")
+            .style("top", d3.event.pageY + 10 + "px");
+        }
+      };
+
+      var mouseleave = function (d) {
+        Tooltip1.style("opacity", 0)
+          .style("left", 0 + "px")
+          .style("top", 0 + "px");
+      };
+
+      // circles : size according to plastic waste in gram per person per day 
+      svg
+        .selectAll("circles_country")
+        .data(data)
+        .enter()
+        .append("circle")
+        .style("fill", "red")
+        .attr("r", function (d) {
+          return size1(d["Per capita plastic waste (kg/person/day)"]);
+        })
+        .attr("fill-opacity", "0.4")
+        .attr("cx", (d) => projection([d["longitude"], d["latitude"]])[0])
+        .attr("cy", (d) => projection([d["longitude"], d["latitude"]])[1])
+        .attr("class", "circle")
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave)
+        .raise();
+    });
+
+    ///////////////////////////////////////////////////////////////////
+    // bubble map for plastic waste in oceans and seas in g per km //
+
+    // read and prepare data about plastic waste in oceans and seas in kg per km 
+    // and its equivalence in plastic bottles, bottles filled tennis court
+    d3.csv("ocean_plastic.csv", function (data) {
+      // Add a scale for bubble size
+      var tab_size = [];
+      for (var j = 0; j < data.length; j++) {
+        tab_size.push(data[j]["TOTAL__G_KM_"]);
+        var bottle = Math.trunc((data[j]["TOTAL__G_KM_"] * 1000) / 28);
+        var tennis_court = Math.trunc(bottle / 8953);
+        data[j].bottles = bottle;
+        data[j].tennis_court = tennis_court;
+      }
+      tab_size = tab_size.map((x) => +x);
+
+      var size2 = d3
+        .scaleLinear() // Size in pixel
+        .domain([d3.min(tab_size) + 0.1, d3.max(tab_size)])
+        .range([1, 10]);
+
+      // creation of the second tooltip for plastic waste in oceans and seas in g per km
+      var Tooltip2 = d3
+        .select("body")
+        .append("div")
+        .attr("class", "tooltip2")
+        .style("opacity", 0)
+        .style("background-color", "white")
+        .style("border-width", "2px")
+        .style("border-radius", "5px")
+        .style("padding", "5px")
+        .style("position", "absolute");
+
+      // Three function that change the tooltip when user hover / move / leave a cell
+      var mouseover = function (d) {
+        Tooltip2.style("opacity", 0.9);
+      };
+
+      var mouseleave = function (d) {
+        Tooltip2.style("opacity", 0)
+          .style("left", 0 + "px")
+          .style("top", 0 + "px");
+      };
+
+      // when hovering, you see some informations about the see :
+      // lattitude and longitude of the measure
+      // Plastic waste in gram per km²
+      // the equivalent in numbers of bottles 
+      // and in numbers of tennis court filled with bottles
+      var mousemove = function (d) {
+        if (d.tennis_court == 0) {
+          Tooltip2.html(
+            "<a style='font-weight: bold;'> Plastic waste in gram per km² = " +
+              d["TOTAL__G_KM_"] +
+              "</a><br>" +
+              "latitude : " +
+              d.LATITUDE +
+              "<br>" +
+              "longitude : " +
+              d.LONGITUDE +
+              "<br>" +
+              "<br>" +
+              "<img src='img/water.png' width='50' height='50' '></img><span style='font-size: 24px; padding-top: 0px;'>" +
+              " x " +
+              d.bottles +
+              "</span>"
+          )
+            .style("left", d3.event.pageX + 10 + "px")
+            .style("top", d3.event.pageY + 10 + "px");
+        } else {
+          Tooltip2.html(
+            "<a style='font-weight: bold;'> Plastic waste in gram per km² = " +
+              d["TOTAL__G_KM_"] +
+              "</a><br>" +
+              "latitude : " +
+              d.LATITUDE +
+              "<br>" +
+              "longitude : " +
+              d.LONGITUDE +
+              "<br>" +
+              "<br>" +
+              "<img src='img/water.png' width='50' height='50' '></img><span style='font-size: 24px; padding-top: 0px;'>" +
+              " x " +
+              d.bottles +
+              "</span><br>" +
+              "<span style='font-size: 24px; padding-left: 17px;padding-top: 6px;'>" +
+              "= </span><br>" +
+              "<img src='img/tennis_court.png' width='50' height='50' ' ></img><span style='font-size: 24px;  padding-top: 0px; '>" +
+              " x " +
+              d.tennis_court +
+              "</span>"
+          )
+            .style("left", d3.event.pageX + 10 + "px")
+            .style("top", d3.event.pageY + 10 + "px");
+        }
+      };
+
+      // circles : size according to plastic waste in gram per km²
+      svg
+        .selectAll("circles_ocean")
+        .data(data)
+        .enter()
+        .append("circle")
+        .style("fill", function (d) {
+          if (d["TOTAL__G_KM_"] == 0) return "white";
+          else return "yellow";
+        })
+        .attr("r", function (d) {
+          if (d["TOTAL__G_KM_"] == 0) return size2(0.1);
+          else return size2(d["TOTAL__G_KM_"]);
+        })
+        .attr("fill-opacity", "0.5")
+        .attr("cx", (d) => projection([d["LONGITUDE"], d["LATITUDE"]])[0])
+        .attr("cy", (d) => projection([d["LONGITUDE"], d["LATITUDE"]])[1])
+        .attr("class", "circle")
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave)
+        .raise();
+    });
+
+    //Zoom on map
+    function zoomed() {
+      g.selectAll("path").attr("transform", d3.event.transform);
+      svg.selectAll("circle").attr("transform", d3.event.transform);
+      svg.selectAll("rect").attr("transform", d3.event.transform);
+    }
+
+    //continent bounds coordinates
+    var continentsBounds = {
+      Africa: [-21.09375, -38.134557, 60.644531, 40.313043],
+      "North America": [-168.046875, 9.795678, -22.148438, 73.922469],
+      "South America": [-87.714844, -56.944974, -31.992188, 13.752725],
+      Europe: [-24.257813, 35.960223, 47.109375, 71.130988],
+      Asia: [35.859375, -8.754795, 178.417969, 77.579959],
+      Oceania: [112.280273, -46.437857, 178.242188, -7.188101]
+    };
+
+    //When clicking on a continent button
+    function clicked(c) {
+      b = continentsBounds[c];
+      //zoom and transition on the continent
+      var dx = projection([b[2], b[3]])[0] - projection([b[0], b[1]])[0],
+        dy = projection([b[0], b[1]])[1] - projection([b[2], b[3]])[1],
+        x = (projection([b[0], b[1]])[0] + projection([b[2], b[3]])[0]) / 2,
+        y = (projection([b[0], b[1]])[1] + projection([b[2], b[3]])[1]) / 2,
+        scale = Math.max(
+          1,
+          Math.min(8, 0.9 / Math.max(dx / width, dy / height))
+        ),
+        translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+      svg
+        .transition()
+        .duration(750)
+        .call(
+          zoom.transform,
+          d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
+        );
+    }
+  </script>
+</body>
