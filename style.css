@@ -28,6 +28,13 @@ rect {
   margin-top: 30px;
 }
 
+.citation {
+  font-family: "Roboto", sans-serif;
+  font-size: 10px;
+  color: black;
+  justify-content: left;
+}
+
 #map {
   height: 120%;
   display: flex;
@@ -173,7 +180,7 @@ rect {
 }
 
 .footer a.active {
-  width: 10%;
+  width: 7%;
   background-color: #55afda;
   color: white !important;
   font-weight: 600;
@@ -238,4 +245,8 @@ rect {
 .credit a {
   color: black;
   font-weight: 600;
+}
+
+h4 {
+  font-style: normal;
 }
