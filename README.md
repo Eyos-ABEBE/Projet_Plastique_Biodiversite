@@ -1,24 +1,16 @@
-![thumbnail](https://subaqua.ffessm.fr/wp-content/uploads/2019/06/AdobeStock_189442232-1-548x365.jpeg)
+Lien Miro : https://miro.com/app/board/o9J_ldq81ss=/
 
-# The lives of our single use plastics within the marine flora and fauna in 2010
+# Projet_Plastique_Biodiversite
 
-We use plastic consumption, ocean plastic pollution and sea and ocean biodiversity data to show the cohabitation of marine flora and fauna with plastics. We built an interactive world map and histogram to observe the biodiversity richness next to plastic consumption and pollution.
+English
 
+The lives of our single use plastics within the marine flora and fauna in 2010
 
-# La vie de nos plastique à usage unique dans la flore et faune marine en 2010
+description
 
-Nous utilisons des données sur la consommation plastique, la pollution plastique des océans et la biodiversité des mers et océans pour montrer la cohabitation de la faune et flore marine avec les plastiques. Nous avons réalisé une carte du monde interactive pour observer la richesse de la biodiversité à côté de la consommation et pollution plastique.
+Français
 
-  
+La vie de nos plastique à usage unique dans la flore et faune marine en 2010
+Une description
 
-\
-\
-\
-Jonathan Pattin Cottet  
-Eyosyas Abebe  
-Simon Verdu  
-Florian Gaspard  
-
-https://lyondataviz.github.io/teaching/lyon1-m2/2020  
-Université Claude Bernard Lyon 1  
-Master Data Science 2020
+description
