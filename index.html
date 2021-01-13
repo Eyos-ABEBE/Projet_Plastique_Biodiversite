@@ -194,7 +194,7 @@
           </div>
           <!-- Div where the caption take place, at the right side of the two visualisations  -->
           <div class="col-2" id="caption">
-            <img src="img/caption_final.png"
+            <img src="data/img/caption_final.png"
             alt="caption about all visualisations"
             width="395"
             height="649" /></img>
@@ -379,7 +379,7 @@ International Narcotics Control Board 1999, United Nations, accessed 1 October 1
       .await(ready);
 
     //WCMC-019-PatternsBiodiversity2010-AcrossTaxa.csv
-    d3.csv("WCMC-019-PatternsBiodiversity2010-AcrossTaxa.csv", function (data) {
+    d3.csv("data/WCMC-019-PatternsBiodiversity2010-AcrossTaxa.csv", function (data) {
       tab_color = [];
       data.sort(function (a, b) {
         return b["Y_COORD,N,18,5"] - a["Y_COORD,N,18,5"];
@@ -469,7 +469,7 @@ International Narcotics Control Board 1999, United Nations, accessed 1 October 1
 
     // read and prepare data about plastic waste and its equivalence in 
     // plastic bottles and plastic bags.
-    d3.csv("countries.csv", function (data) {
+    d3.csv("data/countries.csv", function (data) {
       var tab_size = [];
       for (var j = 0; j < data.length; j++) {
         tab_size.push(data[j]["Per capita plastic waste (kg/person/day)"]);
@@ -526,7 +526,7 @@ International Narcotics Control Board 1999, United Nations, accessed 1 October 1
               "g" +
               "<br>" +
               "<br>" + 
-              "<img src='img/water.png' width='50' height='50' '></img><span class ='numbers' style='font-size: 25px; padding-top: 10px;'>" +
+              "<img src='data/img/water.png' width='50' height='50' '></img><span class ='numbers' style='font-size: 25px; padding-top: 10px;'>" +
               " x " +
               d.bottles +
               "</span>"
@@ -543,13 +543,13 @@ International Narcotics Control Board 1999, United Nations, accessed 1 October 1
               d["Per capita plastic waste (kg/person/day)"] * 1000 +
               "<br>" +
               "<br>" + 
-              "<img src='img/water.png' width='50' height='50' '></img><span class ='numbers' style='font-size: 24px; padding-top: 10px;'>" +
+              "<img src='data/img/water.png' width='50' height='50' '></img><span class ='numbers' style='font-size: 24px; padding-top: 10px;'>" +
               " x " +
               d.bottles +
               "</span><br>" +
               "<span style='font-size: 24px; padding-left: 18px;padding-top: 6px;'>" +
               "+ </span><br>" +
-              "<img src='img/shopping-bags.png' width='50' height='50' '></img><span class ='numbers' style='font-size: 24px;  padding-top: 0px; '>" +
+              "<img src='data/img/shopping-bags.png' width='50' height='50' '></img><span class ='numbers' style='font-size: 24px;  padding-top: 0px; '>" +
               " x " +
               d.plastic_bags +
               "</span>"
@@ -590,7 +590,7 @@ International Narcotics Control Board 1999, United Nations, accessed 1 October 1
 
     // read and prepare data about plastic waste in oceans and seas in kg per km 
     // and its equivalence in plastic bottles, bottles filled tennis court
-    d3.csv("ocean_plastic.csv", function (data) {
+    d3.csv("data/ocean_plastic.csv", function (data) {
       // Add a scale for bubble size
       var tab_size = [];
       for (var j = 0; j < data.length; j++) {
@@ -648,7 +648,7 @@ International Narcotics Control Board 1999, United Nations, accessed 1 October 1
               d.LONGITUDE +
               "<br>" +
               "<br>" +
-              "<img src='img/water.png' width='50' height='50' '></img><span style='font-size: 24px; padding-top: 0px;'>" +
+              "<img src='data/img/water.png' width='50' height='50' '></img><span style='font-size: 24px; padding-top: 0px;'>" +
               " x " +
               d.bottles +
               "</span>"
@@ -667,13 +667,13 @@ International Narcotics Control Board 1999, United Nations, accessed 1 October 1
               d.LONGITUDE +
               "<br>" +
               "<br>" +
-              "<img src='img/water.png' width='50' height='50' '></img><span style='font-size: 24px; padding-top: 0px;'>" +
+              "<img src='data/img/water.png' width='50' height='50' '></img><span style='font-size: 24px; padding-top: 0px;'>" +
               " x " +
               d.bottles +
               "</span><br>" +
               "<span style='font-size: 24px; padding-left: 17px;padding-top: 6px;'>" +
               "= </span><br>" +
-              "<img src='img/tennis_court.png' width='50' height='50' ' ></img><span style='font-size: 24px;  padding-top: 0px; '>" +
+              "<img src='data/img/tennis_court.png' width='50' height='50' ' ></img><span style='font-size: 24px;  padding-top: 0px; '>" +
               " x " +
               d.tennis_court +
               "</span>"
